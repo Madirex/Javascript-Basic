@@ -8,7 +8,7 @@ Se genera una ficha de una persona random sacada de la API de https://randomuser
 Se generan imágenes. Las imágenes se irán cambiando de forma aleatoria durante un determinado periodo de tiempo.
 
 <p align="center">
-  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhhb_6XbPtkelg1yTPuchZb8ANewkQo_g786axP7SH05r573AxSvLowLs32vg3tvnldjS8QK6sPsAMRy1VMJY4BmaUCbEsKuaYmCF3FyKlAptcGXKwFNw28mYAuDPjA_sRglmDRUaOJAyNDWDpnKv_3k9Lx9rRkhu6nXtCequc14TujYCufoIVhPa_Fiw"/>
+  <img src="https://i.imgur.com/UtKB9mp.gif"/>
 </p>
 
 ## Loop de Headers
