@@ -1,4 +1,10 @@
 class Brain{
+
+    constructor(){
+        this.images = [];
+    }
+
+
     /* Init */
     init = function init(){
         document.body.style.margin = "50px";
@@ -16,18 +22,109 @@ class Brain{
         }
     }
 
-       
+    /* Recoge elementos de una API y muestra el contenido en la página */
+    apiStart = function apiStart(){
+        Util.createTitle("Utilizando una API:");
+        let content = document.createElement('div');
+        let url = "https://randomuser.me/api/?results=1";
+        let image = document.createElement('img');
+        let name = document.createElement('p');
+        let email = document.createElement('p');
+        let gender = document.createElement('p');
+        let country = document.createElement('p');
+        let phone = document.createElement('p');
+
+        let loading = Util.getLoadingImg();
+        document.body.appendChild(loading);
+
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let person = data.results[0];
+            image.setAttribute("src", person.picture.large);
+            name.textContent = "Nombre: " + person.name.first + " " + person.name.last;
+            email.textContent = "Email: " + person.email;
+            gender.textContent = "Género: " + person.gender;
+            country.textContent = "País: " + person.location.country;
+            phone.textContent = "Teléfono: " + person.phone;
+
+            content.appendChild(image);
+            content.appendChild(name);
+            content.appendChild(email);
+            content.appendChild(gender);
+            content.appendChild(country);
+            content.appendChild(phone);
+
+            //Eliminar loading
+            document.body.removeChild(loading);
+        });
+        document.body.appendChild(content);
+    }
+
+    /* Cambia una imagen aleatoria de la array de imágenes */
+    changeRandomPicture = function(){
+        let url = "https://randomuser.me/api/?results=1";
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let select = parseInt(Util.getRandom(0,this.images.length - 1));
+            let person = data.results[0];
+            this.images[select].src = person.picture.large;
+        });
+    }
+
+    apiImagesRandom = function apiImagesRandom(){
+        Util.createTitle("API Imágenes Random:");
+        let content = document.createElement('div');
+        let maxImages = 50;
+        let url = "https://randomuser.me/api/?results=" + maxImages;
+
+        let loading = Util.getLoadingImg();
+        document.body.appendChild(loading);
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+            for(let i = 0; i<maxImages; i++){
+                let image = document.createElement('img');
+                this.images.push(image);
+                content.appendChild(image);
+                let person = data.results[i];
+                image.setAttribute("src", person.picture.large);
+                content.appendChild(image);
+            }
+
+            //Eliminar loading
+            document.body.removeChild(loading);
+
+            //Agregar cambio de imagen cada x tiempo
+            for(let n = 0; n < 1000; n++){
+                setInterval(this.changeRandomPicture(),1000 * n);
+            }
+        });
+    
+        document.body.appendChild(content);
+    }
+
     /* Crea cajas alrededor de la pantalla de manera aleatoria */
     randomBoxes = function randomBoxes(){
         Util.createTitle("Loop de cajas:");
+        let content = document.createElement("div");
+        let height = 600;
         for(let i= 0; i < 100; i++){
-            var box = this.createRandomBox(1500);
-            document.body.appendChild(box);
+            var box = this.createRandomBox(height);
+            content.appendChild(box);
         }
+        content.style.height = height + "px";
+        document.body.appendChild(content);
     }
 
     /* Función: Crea una caja aleatoria con una posición y color aleatorio */
     createRandomBox = function createRandomBox(maxBoxHeight){
+        
         let boxSize = 50;
 
         let minWidth = 0;
@@ -76,10 +173,22 @@ class Util{
     static getRandom(min, max){
         return (Math.random() * (max - min)) + min;
     }
+
+    static getLoadingImg(){
+        //Loading
+        let loading = document.createElement('img');
+        loading.textContent = "Cargando...";
+        loading.src = './images/loading.gif'
+        loading.style.height = "64px";
+        loading.style.width = "64px";
+        return loading;
+    }
 }
 
 /* Init */
 brain = new Brain();
 brain.init();
+brain.apiStart();
+brain.apiImagesRandom();
 brain.showLoopTitles();
 brain.randomBoxes();
