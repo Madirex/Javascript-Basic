@@ -1,10 +1,6 @@
 # Javascript-Basic
 Ejercicios de JavaScript básicos: un ejercicio que imprime headers en bucle (de mayor a menor) y otro que imprime cajas alrededor de la pantalla con colores aleatorios.
 
-<p align="center">
-  <img src="https://i.imgur.com/0FFLdta.png"/>
-</p>
-
 ## Ficha API
 Se genera una ficha de una persona random sacada de la API de https://randomuser.me/ se imprime una imagen, nombre, email, género, país y teléfono.
 
